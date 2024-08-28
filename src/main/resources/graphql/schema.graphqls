@@ -1,0 +1,71 @@
+type Query {
+    getPerson(id: String!): PersonResponse
+    getAllPerson(first: Int, last: Int, before: String, after: String): PersonResponseConnection
+}
+
+type Mutation {
+    createPerson(person: PersonInput): PersonResponse
+}
+
+input PersonInput {
+    flag: Boolean!
+    value: Float
+    custome: MapInput
+    address: AddressInput
+    books: [BookInput]
+}
+
+input MapInput {
+    key: String
+    value: [String]
+}
+
+input AddressInput {
+    street: String
+    city: String
+}
+
+input BookInput {
+    title: String
+    author: String
+}
+
+type PersonResponse {
+    id: String
+    flag: Boolean
+    value: Float
+    custome: CustomType
+    address: Address
+    books: [Book]
+}
+
+type CustomType {
+    key: String
+    value: [String]
+}
+
+type Address {
+    street: String
+    city: String
+}
+
+type Book {
+    title: String
+    author: String
+}
+type PersonResponseConnection {
+    edges: [PersonResponseEdge]
+    pageInfo: PageInfo
+}
+
+type PersonResponseEdge {
+    node: PersonResponse
+    cursor: String
+}
+
+type PageInfo {
+    startCursor: String
+    endCursor: String
+    hasNextPage: Boolean
+    hasPreviousPage: Boolean
+}
